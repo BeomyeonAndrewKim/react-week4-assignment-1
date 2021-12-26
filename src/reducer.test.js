@@ -3,6 +3,25 @@ import reducer from './reducer';
 import { updateTaskTitle, addTask, deleteTask } from './actions';
 
 describe('reducer', () => {
+  context('default with initial state', () => {
+    const initialState = {
+      newId: 100,
+      taskTitle: '',
+      tasks: [],
+    };
+    it('return default state when wrong action is passed', () => {
+      const state = reducer(initialState, { type: 'wrong' });
+
+      expect(state).toMatchObject(initialState);
+    });
+
+    it('return default state when state is not passed to reducer', () => {
+      const state = reducer(undefined, { type: 'wrong' });
+
+      expect(state).toMatchObject(initialState);
+    });
+  });
+
   describe('updateTaskTitle', () => {
     it('returns new state with new task title', () => {
       const state = reducer(
