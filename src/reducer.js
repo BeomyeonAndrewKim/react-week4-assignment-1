@@ -8,14 +8,14 @@ export default function reducer(
   state = initialState,
   action,
 ) {
-  if (action.type === 'updateTaskTitle') {
+  switch (action.type) {
+  case 'updateTaskTitle': {
     return {
       ...state,
       taskTitle: action.payload.taskTitle,
     };
   }
-
-  if (action.type === 'addTask') {
+  case 'addTask': {
     const { newId, tasks, taskTitle } = state;
 
     if (!taskTitle) {
@@ -29,8 +29,7 @@ export default function reducer(
       tasks: [...tasks, { id: newId, title: taskTitle }],
     };
   }
-
-  if (action.type === 'deleteTask') {
+  case 'deleteTask': {
     const { tasks } = state;
     return {
       ...state,
@@ -39,6 +38,7 @@ export default function reducer(
       ),
     };
   }
-
-  return state;
+  default:
+    return state;
+  }
 }
